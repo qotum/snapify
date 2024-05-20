@@ -1,0 +1,12 @@
+@layer reset, base, tokens, recipes, utilities;
+
+@layer utilities {
+  .background-png-like {
+    background:
+      linear-gradient(45deg, #dcdfe1 25%, transparent 25%, transparent 75%, #dcdfe1 75%, #dcdfe1),
+      linear-gradient(45deg, #dcdfe1 25%, transparent 25%, transparent 75%, #dcdfe1 75%, #dcdfe1);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+    background-color: #edf0f2;
+  }
+}

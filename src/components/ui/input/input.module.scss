@@ -1,0 +1,90 @@
+.input {
+  border-radius: 5px;
+  background-color: theme('colors.background');
+  color: theme('colors.white');
+  color-scheme: dark;
+  border: 1px solid theme('colors.grey-.200');
+  padding: 8px 12px;
+  transition: filter 0.2s;
+
+  &--error {
+    border: 1px solid theme('colors.red');
+    color: theme('colors.red');
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      filter: brightness(1);
+    }
+  }
+
+  &::placeholder {
+    color: theme('colors.grey-.100');
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px theme('colors.grey-.200') inset;
+    -webkit-text-fill-color: theme('colors.white') !important;
+  }
+
+  &:hover, &:active, &:focus {
+    filter: brightness(1.1);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    fill: theme("colors.card-border");
+    cursor: pointer;
+  }
+}
+
+.checkbox {
+  & > input {
+    // Reset native checkbox
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    
+    // Custom unchecked checkbox
+    background-color: theme('colors.background');
+    color: theme('colors.grey-.100');
+    font: inherit;
+    width: 10px;
+    height: 25px;
+    border: 1px solid theme('colors.grey-.100');
+    border-radius: 5px;
+    cursor: pointer;
+
+    // - :checked state
+    display: grid;
+    place-content: center;
+
+    &:checked {
+      &::before {
+        transform: scale(1);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &::before {
+      content: "";
+      width: 0.65em;
+      height: 0.65em;
+      transform: scale(0);
+      transition: 0.2s transform ease-in-out;
+      box-shadow: inset 1em 1em theme('colors.green');
+      transform-origin: bottom left;
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    }
+  }
+}

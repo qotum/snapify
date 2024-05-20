@@ -1,0 +1,37 @@
+{
+    "name": "Snapify",
+    "short_name": "snapify",
+    "icons": [
+        {
+            "src": "/static/images/favicon/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/images/favicon/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/images/favicon/favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/images/favicon/favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/images/favicon/apple-touch-icon.png",
+            "type": "image/png"
+        }
+    ],
+    "lang": "fr",
+    "start_url": "/",
+    "scope": "/",
+    "theme_color": "#F5F8FB",
+    "background_color": "#F5F8FB",
+    "display": "standalone",
+    "orientation": "portrait"
+}
