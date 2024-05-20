@@ -50,7 +50,6 @@ export const generateMetadata = ({
     alternateLocale: MANIFEST.APP_ALTERNATE_LOCALE,
     countryName: MANIFEST.APP_COUNTRY_NAME,
     siteName: MANIFEST.APP_NAME,
-    emails: MANIFEST.APP_EMAILS,
   };
 
   return {
