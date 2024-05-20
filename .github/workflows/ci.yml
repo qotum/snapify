@@ -18,18 +18,14 @@ jobs:
         uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 2
-      - name: '[Push] Get commit message'
+      - name: "[Push] Get commit message"
         if: github.event_name == 'push'
         id: push_get_commit_message
         run: echo "push_commit_message=$(git log --format=%B -n 1 HEAD)" >> $GITHUB_STATE
-      - name: '[Pull Request] Get commit message'
+      - name: "[Pull Request] Get commit message"
         if: github.event_name == 'pull_request'
         id: pr_get_commit_message
         run: echo "pr_commit_message=$(git log --format=%B -n 1 HEAD^2)" >> $GITHUB_STATE
-      - name: Add problem matchers
-        run: |
-          echo "::add-matcher::.github/problemMatchers/eslint-stylish.json"
-          echo "::add-matcher::.github/problemMatchers/tsc.json"
     outputs:
       commit_message: $( [ -z "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" ] && echo "${{ steps.push_get_commit_message.outputs.push_commit_message }}" || echo "${{ steps.pr_get_commit_message.outputs.pr_commit_message }}" )
 
@@ -51,11 +47,11 @@ jobs:
         uses: actions/cache@v4.0.2
         with:
           path: node_modules
-          key: ${{ runner.os }}-20-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-20-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
-      - name: Run ESLint
-        run: yarn lint
+        run: pnpm i --frozen-lockfile
+      - name: Run Biome
+        run: pnpm lint
 
   build:
     name: Compiling source code
@@ -75,12 +71,12 @@ jobs:
         uses: actions/cache@v4.0.2
         with:
           path: node_modules
-          key: ${{ runner.os }}-20-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-20-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Install Dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: Compiling source code
         run: |
           if [ "${{ github.ref }}" != "refs/heads/main" ]; then
             cp .env.development .env.production
           fi
-          yarn build
+          pnpm build
