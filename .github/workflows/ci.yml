@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - name: "[Push] Get commit message"
@@ -36,18 +36,22 @@ jobs:
     needs: pre_ci
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Use Node.js 20
-        uses: actions/setup-node@v4.0.2
+        uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Restore NodeJS Cache
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-20-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Install Dependencies
         run: pnpm i --frozen-lockfile
       - name: Run Biome
@@ -60,18 +64,22 @@ jobs:
     needs: pre_ci
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Use Node.js 20
-        uses: actions/setup-node@v4.0.2
+        uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Restore NodeJS Cache
-        uses: actions/cache@v4.0.2
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-20-${{ hashFiles('**/pnpm-lock.yaml') }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - name: Install Dependencies
         run: pnpm i --frozen-lockfile
       - name: Compiling source code
