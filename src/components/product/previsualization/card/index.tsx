@@ -1,5 +1,5 @@
 import type { Video } from "@/types/video";
-import type React from "react";
+import React from "react";
 import { isActiveWidgets, type Display, type Widget } from "../..";
 import { css, cx } from "@styled-system/css";
 import Image from "@/components/ui/image";
@@ -25,10 +25,10 @@ type PrevisualizationCardProps = {
 	};
 };
 
-const PrevisualizationCard: React.FC<PrevisualizationCardProps> = ({
-	video,
-	options,
-}: PrevisualizationCardProps) => {
+const PrevisualizationCard = React.forwardRef<
+	HTMLDivElement,
+	PrevisualizationCardProps
+>(({ video, options }: PrevisualizationCardProps) => {
 	const buildFooter = () => {
 		const viewsCount =
 			isActiveWidgets(options.activeWidgets, "videoViews") && video.viewsCount;
@@ -177,6 +177,6 @@ const PrevisualizationCard: React.FC<PrevisualizationCardProps> = ({
 			</div>
 		</motion.div>
 	);
-};
+});
 
 export default PrevisualizationCard;

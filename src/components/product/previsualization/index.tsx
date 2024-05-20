@@ -5,16 +5,55 @@ import PrevisualizationCard from "./card";
 import { defaultOptions, defaultVideo } from "@/constants/default-video";
 import type { Widget } from "..";
 import Select from "@/components/ui/select";
+import { useForm } from "react-hook-form";
+import React from "react";
 
 type ProductPrevisualizationProps = {
 	className?: string;
 	activeWidgets: Widget[];
 };
 
+type FormData = {
+	format: "png" | "jpg" | "webp";
+	size: "0.5" | "0.75" | "1" | "1.5" | "2" | "3";
+};
+
 const ProductPrevisualization: React.FC<ProductPrevisualizationProps> = ({
 	className,
 	activeWidgets,
 }: ProductPrevisualizationProps) => {
+	const ref = React.useRef<HTMLDivElement>(null);
+
+	const { register, handleSubmit } = useForm<FormData>({
+		defaultValues: {
+			format: "png",
+			size: "1",
+		},
+	});
+
+	// Un truc dans l'idée tu capte jsp j'pense bref azy
+	const onSubmit = handleSubmit(({ format, size }: FormData) => {
+		console.log("Data", format, size);
+
+		//TODO: html to image and return image
+
+		return "caca";
+	});
+
+	const handleDownload = () => {
+		const image = onSubmit();
+		console.log("Download image", image);
+		if (ref.current) {
+		}
+	};
+
+	const handleCopy = () => {
+		if (ref.current) {
+			const image = onSubmit();
+			console.log("Copy image", image);
+		}
+	};
+
 	return (
 		<div
 			className={cx(
@@ -62,6 +101,7 @@ const ProductPrevisualization: React.FC<ProductPrevisualizationProps> = ({
 				})}
 			>
 				<PrevisualizationCard
+					ref={ref}
 					video={defaultVideo}
 					options={{
 						...defaultOptions,
@@ -70,7 +110,7 @@ const ProductPrevisualization: React.FC<ProductPrevisualizationProps> = ({
 				/>
 			</div>
 
-			<div
+			<form
 				className={css({
 					position: "absolute",
 					width: "100%",
@@ -87,34 +127,46 @@ const ProductPrevisualization: React.FC<ProductPrevisualizationProps> = ({
 				})}
 			>
 				<Select
+					{...register("size")}
 					className={css({
 						width: "max-content",
 					})}
 				>
-					<option>1x</option>
-					<option>2x</option>
-					<option>3x</option>
-					<option>Puff</option>
+					<option value={"0.5"}>0.5x</option>
+					<option value={"0.75"}>0.75x</option>
+					<option value={"1"}>1x</option>
+					<option value={"1.5"}>1.5x</option>
+					<option value={"2"}>2x</option>
+					<option value={"3"}>3x</option>
 				</Select>
 
 				<Select
+					{...register("format")}
 					className={css({
 						width: "max-content",
 					})}
 				>
-					<option>PNG</option>
-					<option>JPG</option>
-					<option>WEBP</option>
+					<option value={"png"}>PNG</option>
+					<option value={"jpg"}>JPG</option>
+					<option value={"webp"}>WEBP</option>
 				</Select>
 
-				<Button prefix={<Icon icon="download" size={16} />} color="secondary">
+				<Button
+					prefix={<Icon icon="download" size={16} />}
+					color="secondary"
+					onClick={handleDownload}
+				>
 					Télécharger
 				</Button>
 
-				<Button prefix={<Icon icon="copy" size={16} />} withoutBorder>
+				<Button
+					prefix={<Icon icon="copy" size={16} />}
+					withoutBorder
+					onClick={handleCopy}
+				>
 					Copier
 				</Button>
-			</div>
+			</form>
 		</div>
 	);
 };
